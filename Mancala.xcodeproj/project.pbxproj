@@ -11,6 +11,10 @@
 		5953CEB029E4F9F70071F4CA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5953CEAF29E4F9F70071F4CA /* ContentView.swift */; };
 		5953CEB229E4FA010071F4CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5953CEB129E4FA010071F4CA /* Assets.xcassets */; };
 		5953CEB529E4FA010071F4CA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5953CEB429E4FA010071F4CA /* Preview Assets.xcassets */; };
+		5953CEBE29E4FA200071F4CA /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5953CEBD29E4FA200071F4CA /* Rule.swift */; };
+		5953CEC129E4FA2E0071F4CA /* Human.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5953CEC029E4FA2E0071F4CA /* Human.swift */; };
+		5953CEC429E4FA3E0071F4CA /* Computer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5953CEC329E4FA3E0071F4CA /* Computer.swift */; };
+		5953CEC729E4FA4B0071F4CA /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5953CEC629E4FA4B0071F4CA /* Result.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +24,10 @@
 		5953CEB129E4FA010071F4CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5953CEB429E4FA010071F4CA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5953CEB629E4FA010071F4CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5953CEBD29E4FA200071F4CA /* Rule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
+		5953CEC029E4FA2E0071F4CA /* Human.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Human.swift; sourceTree = "<group>"; };
+		5953CEC329E4FA3E0071F4CA /* Computer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Computer.swift; sourceTree = "<group>"; };
+		5953CEC629E4FA4B0071F4CA /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +61,10 @@
 			isa = PBXGroup;
 			children = (
 				5953CEAD29E4F9F70071F4CA /* MancalaApp.swift */,
+				5953CEBD29E4FA200071F4CA /* Rule.swift */,
+				5953CEC029E4FA2E0071F4CA /* Human.swift */,
+				5953CEC629E4FA4B0071F4CA /* Result.swift */,
+				5953CEC329E4FA3E0071F4CA /* Computer.swift */,
 				5953CEAF29E4F9F70071F4CA /* ContentView.swift */,
 				5953CEB129E4FA010071F4CA /* Assets.xcassets */,
 				5953CEB629E4FA010071F4CA /* Info.plist */,
@@ -138,8 +150,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5953CEC729E4FA4B0071F4CA /* Result.swift in Sources */,
+				5953CEBE29E4FA200071F4CA /* Rule.swift in Sources */,
 				5953CEB029E4F9F70071F4CA /* ContentView.swift in Sources */,
+				5953CEC429E4FA3E0071F4CA /* Computer.swift in Sources */,
 				5953CEAE29E4F9F70071F4CA /* MancalaApp.swift in Sources */,
+				5953CEC129E4FA2E0071F4CA /* Human.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
