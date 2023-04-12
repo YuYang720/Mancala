@@ -24,6 +24,8 @@ struct Result: View {
     @Binding var player1_score: Int
     @Binding var player2_score: Int
     
+    @State var pocket: [Int] = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0]
+    
     var body: some View {
         VStack{
             Spacer()

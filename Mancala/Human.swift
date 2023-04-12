@@ -77,7 +77,7 @@ struct Human: View {
         }
         
         //  確認圓內無剩餘寶石 加上橢圓分數
-        if(non_zero_count[0] == 0 || non_zero_count[1] == 0){
+        if((non_zero_count[0] == 0 || non_zero_count[1] == 0) && unmove_stone == 0){
             endd = true
             for i in 0...5{
                 circle1_sum += pocket[i]
