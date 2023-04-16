@@ -18,8 +18,6 @@ struct Computer: View {
     @State var player2_score = 0
     @State var NZC: [Int] = [6, 6]
     @State var non_zero_count: [Int] = [6, 6]
-    @State var circle1_sum = 0
-    @State var circle2_sum = 0
 
     @State var computer_firend = true
     @State var endd = false
@@ -80,13 +78,11 @@ struct Computer: View {
         if(non_zero_count[0] == 0 || non_zero_count[1] == 0){
             endd = true
             for i in 0...5{
-                circle1_sum += pocket[i]
+                pocket[6] += pocket[i]
                 pocket[i] = 0
-                circle2_sum += pocket[12-i]
+                pocket[13] += pocket[12-i]
                 pocket[12-i] = 0
             }
-            pocket[6] += circle1_sum
-            pocket[13] += circle2_sum
             if(pocket[6] > pocket[13]){
                 p1win = true
             }
@@ -163,7 +159,7 @@ struct Computer: View {
                     ForEach(7..<13){ i in
                         HStack{
                             Circle()
-                                .stroke(((computer_turn && pocket[i] != 0) ? Color.red: .blue), lineWidth: 3.0)
+                                .stroke(((computer_turn && pocket[19-i] != 0) ? Color.red: .blue), lineWidth: 3.0)
                                 .frame(width: 90, height: 90, alignment: .center)
                                 .fullScreenCover(isPresented: $endd, content: {
                                     Result(show: $showComputer, computer_friend: $computer_firend, p1win: $p1win, tie: $tie, player1_score: $pocket[6], player2_score: $pocket[13])

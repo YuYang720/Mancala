@@ -15,8 +15,6 @@ struct Human: View {
     @State var pocket: [Int] = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0]
     @State var NZC: [Int] = [6, 6]
     @State var non_zero_count: [Int] = [6, 6]
-    @State var circle1_sum = 0
-    @State var circle2_sum = 0
     
     @State var backhome = false
     @State var endd = false
@@ -80,13 +78,11 @@ struct Human: View {
         if((non_zero_count[0] == 0 || non_zero_count[1] == 0) && unmove_stone == 0){
             endd = true
             for i in 0...5{
-                circle1_sum += pocket[i]
+                pocket[6] += pocket[i]
                 pocket[i] = 0
-                circle2_sum += pocket[12-i]
+                pocket[13] += pocket[12-i]
                 pocket[12-i] = 0
             }
-            pocket[6] += circle1_sum
-            pocket[13] += circle2_sum
             if(pocket[6] > pocket[13]){
                 p1win = true
             }
@@ -109,76 +105,131 @@ struct Human: View {
     }
     
     var body: some View {
-        VStack(alignment: .center, spacing: 25){
-            Text("Current Player: \(current_player)")
-                .font(.largeTitle)
-                .foregroundColor(.black)
-            HStack(alignment: .center, spacing: 30){
-                VStack(alignment: .center, spacing: 20){
-                    //Text("Player 1")
-                    ForEach(0..<6){ i in
-                        HStack{
-                            Text("\(pocket[i])")
-                            Circle()
-                                .stroke(((current_player == 1 && pocket[i] != 0) ? Color.red : .blue), lineWidth: 3.0)
-                                .frame(width: 90, height: 90, alignment: .center)
-                                .fullScreenCover(isPresented: $endd, content: {
-                                    Result(show: $showHuman, computer_friend: $computer_firend, p1win: $p1win, tie: $tie, player1_score: $pocket[6], player2_score: $pocket[13])
-                                })
-                                .onTapGesture {
-                                    if(current_player == 1 && pocket[i] != 0 && (non_zero_count[0] != 0 && non_zero_count[1] != 0)){
-                                        move_stone(index: i)
+        ZStack{
+            Image("background2")
+                .resizable()
+                .rotationEffect(.degrees(90))
+                .frame(width: 940, height: 430, alignment: .center)
+            VStack(alignment: .center, spacing: 25){
+                Text("Current Player: \(current_player)")
+                    .font(.largeTitle)
+                    .foregroundColor(.yellow)
+                HStack(alignment: .center, spacing: 30){
+                    VStack(alignment: .center, spacing: 20){
+                        //Text("Player 1")
+                        ForEach(0..<6){ i in
+                            HStack{
+                                Text("\(pocket[i])")
+                                    .foregroundColor(((current_player == 1 && pocket[i] != 0) ? Color.red : .blue))
+                                    .font(.title2)
+                                ZStack{
+                                    Circle()
+                                        .stroke(((current_player == 1 && pocket[i] != 0) ? Color.red : .blue), lineWidth: 3.0)
+                                        .frame(width: 90, height: 90, alignment: .center)
+                                        .fullScreenCover(isPresented: $endd, content: {
+                                            Result(show: $showHuman, computer_friend: $computer_firend, p1win: $p1win, tie: $tie, player1_score: $pocket[6], player2_score: $pocket[13])
+                                        })
+                                        .onTapGesture {
+                                            if(current_player == 1 && pocket[i] != 0 && (non_zero_count[0] != 0 && non_zero_count[1] != 0)){
+                                                move_stone(index: i)
+                                            }
+                                        }
+                                    ForEach(0..<pocket[i], id:\.self){ j in
+                                        if(pocket[i] != 0){
+                                            Image("cat\(j%7)")
+                                                .resizable()
+                                                .frame(width: 35, height: 35)
+                                                .offset(x: CGFloat.random(in: -30...30), y: CGFloat.random(in: -30...30))
+                                        }
                                     }
                                 }
+                            }
                         }
-                    }
-                    HStack(alignment: .center){
-                        Text("\(pocket[6])")
-                        RoundedRectangle(cornerRadius: 100)
-                            .stroke(Color.blue, lineWidth: 3.0)
-                            .frame(width: 160, height: 90, alignment: .center)
-                    }
-                }
-                VStack(alignment: .center, spacing: 20){
-                    //Text("Player 2")
-                    HStack(alignment: .center){
-                        RoundedRectangle(cornerRadius: 100)
-                            .stroke(Color.blue, lineWidth: 3.0)
-                            .frame(width: 160, height: 90, alignment: .center)
-                        Text("\(pocket[13])")
-                    }
-                    /*for i in stride(from: 12, through: 7, by: -1)*/
-                    
-                    ForEach(7..<13){ i in
-                        HStack{
-                            Circle()
-                                .stroke(((current_player == 2 && pocket[19-i] != 0) ? Color.red: .blue), lineWidth: 3.0)
-                                .frame(width: 90, height: 90, alignment: .center)
-                                .fullScreenCover(isPresented: $endd, content: {
-                                    Result(show: $showHuman, computer_friend: $computer_firend, p1win: $p1win, tie: $tie, player1_score: $pocket[6], player2_score: $pocket[13])
-                                })
-                                .onTapGesture {
-                                    if(current_player == 2 && pocket[19-i] != 0 && (non_zero_count[0] != 0 && non_zero_count[1] != 0)){
-                                        move_stone(index: 19-i)
+                        HStack(alignment: .center){
+                            Text("\(pocket[6])")
+                                .foregroundColor(((current_player == 1 && pocket[6] != 0) ? Color.red : .blue))
+                                .font(.title2)
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 100)
+                                    .stroke(Color.blue, lineWidth: 3.0)
+                                    .frame(width: 160, height: 90, alignment: .center)
+                                ForEach(0..<pocket[6], id:\.self){ j in
+                                    if(pocket[6] != 0){
+                                        Image("cat\(j%7)")
+                                            .resizable()
+                                            .frame(width: 35, height: 35)
+                                            .offset(x: CGFloat.random(in: -50...50), y: CGFloat.random(in: -30...30))
                                     }
                                 }
-                            Text("\(pocket[19-i])")
+                            }
+                        }
+                    }
+                    VStack(alignment: .center, spacing: 20){
+                        //Text("Player 2")
+                        HStack(alignment: .center){
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 100)
+                                    .stroke(Color.blue, lineWidth: 3.0)
+                                    .frame(width: 160, height: 90, alignment: .center)
+                                ForEach(0..<pocket[13], id:\.self){ j in
+                                    if(pocket[13] != 0){
+                                        Image("cat\(j%7)")
+                                            .resizable()
+                                            .frame(width: 35, height: 35)
+                                            .offset(x: CGFloat.random(in: -50...50), y: CGFloat.random(in: -30...30))
+                                    }
+                                }
+                            }
+                            Text("\(pocket[13])")
+                                .foregroundColor(((current_player == 1 && pocket[13] != 0) ? Color.red : .blue))
+                                .font(.title2)
+                        }
+                        /*for i in stride(from: 12, through: 7, by: -1)*/
+                        
+                        ForEach(7..<13){ i in
+                            HStack{
+                                ZStack{
+                                    Circle()
+                                        .stroke(((current_player == 2 && pocket[19-i] != 0) ? Color.red: .blue), lineWidth: 3.0)
+                                        .frame(width: 90, height: 90, alignment: .center)
+                                        .fullScreenCover(isPresented: $endd, content: {
+                                            Result(show: $showHuman, computer_friend: $computer_firend, p1win: $p1win, tie: $tie, player1_score: $pocket[6], player2_score: $pocket[13])
+                                        })
+                                        .onTapGesture {
+                                            if(current_player == 2 && pocket[19-i] != 0 && (non_zero_count[0] != 0 && non_zero_count[1] != 0)){
+                                                move_stone(index: 19-i)
+                                            }
+                                        }
+                                    ForEach(0..<pocket[19-i], id:\.self){ j in
+                                        if(pocket[19-i] != 0){
+                                            Image("cat\(j%7)")
+                                                .resizable()
+                                                .frame(width: 35, height: 35)
+                                                .offset(x: CGFloat.random(in: -30...30), y: CGFloat.random(in: -30...30))
+                                        }
+                                    }
+                                }
+                                
+                                Text("\(pocket[19-i])")
+                                    .foregroundColor(((current_player == 2 && pocket[19-i] != 0) ? Color.red : .blue))
+                                    .font(.title2)
+                            }
                         }
                     }
                 }
-            }
-            HStack(alignment: .center, spacing: 30){
-                Button("Home"){
-                    backhome.toggle()
+                HStack(alignment: .center, spacing: 30){
+                    Button("Home"){
+                        backhome.toggle()
+                    }
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .fullScreenCover(isPresented: $backhome, content: {
+                        ContentView()
+                    })
+                    .padding(2)
+                    .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing))
+                    .cornerRadius(10)
                 }
-                .font(.title)
-                .foregroundColor(.white)
-                .fullScreenCover(isPresented: $backhome, content: {
-                    ContentView()
-                })
-                .padding(2)
-                .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing))
-                .cornerRadius(10)
             }
         }
     }
