@@ -20,6 +20,7 @@ struct Computer: View {
     @State var non_zero_count: [Int] = [6, 6]
 
     @State var computer_firend = true
+    @State var backhome = false
     @State var endd = false
     @State var set = false
     @State var p1win = false
@@ -116,81 +117,142 @@ struct Computer: View {
     }
     
     var body: some View {
-        VStack(alignment: .center, spacing: 25){
-            Text(player_turn ? "Your Turn": "Computer Turn")
-                .font(.largeTitle)
-                .foregroundColor(.black)
-            HStack(alignment: .center, spacing: 30){
-                VStack(alignment: .center, spacing: 20){
-                    //Text("Player")
-                    ForEach(0..<6){ i in
-                        HStack{
-                            Text("\(pocket[i])")
-                            Circle()
-                                .stroke(((player_turn && pocket[i] != 0) ? Color.red : .blue), lineWidth: 3.0)
-                                .frame(width: 90, height: 90, alignment: .center)
-                                .fullScreenCover(isPresented: $endd, content: {
-                                    Result(show: $showComputer, computer_friend: $computer_firend, p1win: $p1win, tie: $tie, player1_score: $pocket[6], player2_score: $pocket[13])
-                                })
-                                .onTapGesture {
-                                    if(player_turn && pocket[i] != 0 && (non_zero_count[0] != 0 && non_zero_count[1] != 0)){
-                                        move_stone(index: i)
+        ZStack{
+            Image("background2")
+                .resizable()
+                .rotationEffect(.degrees(90))
+                .frame(width: 940, height: 430, alignment: .center)
+            VStack(alignment: .center, spacing: 25){
+                Text(player_turn ? "Your Turn": "Computer Turn")
+                    .font(.largeTitle)
+                    .foregroundColor((player_turn ? Color.yellow : .blue))
+                HStack(alignment: .center, spacing: 30){
+                    VStack(alignment: .center, spacing: 20){
+                        //Text("Player")
+                        ForEach(0..<6){ i in
+                            HStack{
+                                Text("\(pocket[i])")
+                                    .foregroundColor(Color.yellow)
+                                    .font(.title2)
+                                    .bold()
+                                ZStack{
+                                    Circle()
+                                        .stroke(((player_turn && pocket[i] != 0) ? Color.red : .yellow), lineWidth: 3.0)
+                                        .frame(width: 90, height: 90, alignment: .center)
+                                        .fullScreenCover(isPresented: $endd, content: {
+                                            Result(show: $showComputer, computer_friend: $computer_firend, p1win: $p1win, tie: $tie, player1_score: $pocket[6], player2_score: $pocket[13])
+                                        })
+                                        .onTapGesture {
+                                            if(player_turn && pocket[i] != 0 && (non_zero_count[0] != 0 && non_zero_count[1] != 0)){
+                                                move_stone(index: i)
+                                            }
+                                        }
+                                    ForEach(0..<pocket[i], id:\.self){ j in
+                                        if(pocket[i] != 0){
+                                            Image("cat\(j%7)")
+                                                .resizable()
+                                                .frame(width: 35, height: 35)
+                                                .offset(x: CGFloat.random(in: -30...30), y: CGFloat.random(in: -30...30))
+                                        }
                                     }
                                 }
+                            }
                         }
-                    }
-                    HStack(alignment: .center){
-                        Text("\(pocket[6])")
-                        RoundedRectangle(cornerRadius: 100)
-                            .stroke(Color.blue, lineWidth: 3.0)
-                            .frame(width: 160, height: 90, alignment: .center)
-                    }
-                }
-                VStack(alignment: .center, spacing: 20){
-                    //Text("Computer")
-                    HStack(alignment: .center){
-                        RoundedRectangle(cornerRadius: 100)
-                            .stroke(Color.blue, lineWidth: 3.0)
-                            .frame(width: 160, height: 90, alignment: .center)
-                        Text("\(pocket[13])")
-                    }
-                    /*for i in stride(from: 12, through: 7, by: -1)*/
-                    
-                    ForEach(7..<13){ i in
-                        HStack{
-                            Circle()
-                                .stroke(((computer_turn && pocket[19-i] != 0) ? Color.red: .blue), lineWidth: 3.0)
-                                .frame(width: 90, height: 90, alignment: .center)
-                                .fullScreenCover(isPresented: $endd, content: {
-                                    Result(show: $showComputer, computer_friend: $computer_firend, p1win: $p1win, tie: $tie, player1_score: $pocket[6], player2_score: $pocket[13])
-                                })
-                                .onTapGesture {
+                        HStack(alignment: .center){
+                            Text("\(pocket[6])")
+                                .foregroundColor(Color.yellow)
+                                .font(.title2)
+                                .bold()
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 100)
+                                    .stroke(Color.yellow, lineWidth: 3.0)
+                                    .frame(width: 160, height: 90, alignment: .center)
+                                ForEach(0..<pocket[6], id:\.self){ j in
+                                    if(pocket[6] != 0){
+                                        Image("cat\(j%7)")
+                                            .resizable()
+                                            .frame(width: 35, height: 35)
+                                            .offset(x: CGFloat.random(in: -50...50), y: CGFloat.random(in: -30...30))
+                                    }
                                 }
-                            Text("\(pocket[19-i])")
+                            }
+                            
+                        }
+                    }
+                    VStack(alignment: .center, spacing: 20){
+                        //Text("Computer")
+                        HStack(alignment: .center){
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 100)
+                                    .stroke(Color.blue, lineWidth: 3.0)
+                                    .frame(width: 160, height: 90, alignment: .center)
+                                ForEach(0..<pocket[13], id:\.self){ j in
+                                    if(pocket[13] != 0){
+                                        Image("cat\(j%7)")
+                                            .resizable()
+                                            .frame(width: 35, height: 35)
+                                            .offset(x: CGFloat.random(in: -50...50), y: CGFloat.random(in: -30...30))
+                                    }
+                                }
+                            }
+                            Text("\(pocket[13])")
+                                .foregroundColor(Color.blue)
+                                .font(.title2)
+                                .bold()
+                        }
+                        /*for i in stride(from: 12, through: 7, by: -1)*/
+                        
+                        ForEach(7..<13){ i in
+                            HStack{
+                                ZStack{
+                                    Circle()
+                                        .stroke(((computer_turn && pocket[19-i] != 0) ? Color.red: .blue), lineWidth: 3.0)
+                                        .frame(width: 90, height: 90, alignment: .center)
+                                        .fullScreenCover(isPresented: $endd, content: {
+                                            Result(show: $showComputer, computer_friend: $computer_firend, p1win: $p1win, tie: $tie, player1_score: $pocket[6], player2_score: $pocket[13])
+                                        })
+                                        .onTapGesture {
+                                        }
+                                    ForEach(0..<pocket[19-i], id:\.self){ j in
+                                        if(pocket[19-i] != 0){
+                                            Image("cat\(j%7)")
+                                                .resizable()
+                                                .frame(width: 35, height: 35)
+                                                .offset(x: CGFloat.random(in: -30...30), y: CGFloat.random(in: -30...30))
+                                        }
+                                    }
+                                }
+                                Text("\(pocket[19-i])")
+                                    .foregroundColor(Color.blue)
+                                    .font(.title2)
+                                    .bold()
+                            }
                         }
                     }
                 }
-            }
-            HStack(alignment: .center, spacing: 30){
-                Button("Home"){
-                    showComputer = false
+                HStack(alignment: .center, spacing: 30){
+                    Button("Home"){
+                        backhome.toggle()
+                    }
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .fullScreenCover(isPresented: $backhome, content: {
+                        ContentView()
+                    })
+                    .padding(2)
+                    .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing))
+                    .cornerRadius(10)
                 }
-                .font(.title)
-                .foregroundColor(.white)
-                .padding(2)
-                .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing))
-                .cornerRadius(10)
             }
-        }
-        .onChange(of: onChange_flag){ newValue in
-            if (computer_turn == true){
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0){
-                    computer_move()
+            .onChange(of: onChange_flag){ newValue in
+                if (computer_turn == true){
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0){
+                        computer_move()
+                    }
                 }
             }
         }
     }
-    
 }
 
 struct Computer_Previews: PreviewProvider {

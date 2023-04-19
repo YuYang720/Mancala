@@ -27,69 +27,81 @@ struct Result: View {
     @State var pocket: [Int] = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0]
     
     var body: some View {
-        VStack{
-            Spacer()
-            if tie{
-                Text("DRAW")
-                    .font(.title)
-                    .foregroundColor(.purple)
-            }
-            else if !computer_friend{
-                Text(p1win ? "PLAYER 1 WIN!" : "PLAYER 2 WIN!")
-                    .font(.title)
-                    .foregroundColor(.purple)
-            }
-            else{
-                Text(p1win ? "YOU WIN!" : "YOU LOSE!")
-                    .font(.title)
-                    .foregroundColor(.purple)
-            }
-            HStack{
-                Text(computer_friend ? "YOU:\(player1_score)" : "PLAYER 1:\(player1_score)")
-                    .frame(width: 150, height: 40, alignment: .center)
-                    .foregroundColor(.white)
-                    .background(Color.purple)
-                    .cornerRadius(5.0)
-                Text(computer_friend ? "COMPUTER:\(player2_score)" : "PLAYER 2:\(player2_score)")
-                    .frame(width: 150, height: 40, alignment: .center)
-                    .foregroundColor(.white)
-                    .background(Color.purple)
-                    .cornerRadius(5.0)
-            }
-            HStack{
-                Button("Play Again"){
-                    replay = true
+        ZStack{
+            Image("background2")
+                .resizable()
+                .rotationEffect(.degrees(90))
+                .frame(width: 940, height: 430, alignment: .center)
+            VStack{
+                Spacer()
+                if tie{
+                    Text("DRAW")
+                        .font(.largeTitle)
+                        .foregroundColor(.yellow)
+                        .bold()
                 }
-                .fullScreenCover(isPresented: $replay, content: {
-                    if !computer_friend {
-                        Human(showHuman: $replay)
-                    }
-                    else{
-                        Computer(showComputer: $replay)
-                    }
-                })
-                .foregroundColor(Color.white)
-                .font(.title)
-                .frame(width: 150,height: 40)
-                .padding()
-                .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing))
-                .cornerRadius(10)
-                .padding(5)
-                Button("Home"){
-                    home.toggle()
+                else if !computer_friend{
+                    Text(p1win ? "PLAYER 1 WIN!" : "PLAYER 2 WIN!")
+                        .font(.title)
+                        .foregroundColor(.yellow)
+                        .bold()
                 }
-                .fullScreenCover(isPresented: $home, content: {
-                    ContentView()
-                })
-                .foregroundColor(Color.white)
-                .font(.title)
-                .frame(width: 150,height: 40)
-                .padding()
-                .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing))
-                .cornerRadius(10)
-                .padding(5)
+                else{
+                    Text(p1win ? "YOU WIN!" : "YOU LOSE!")
+                        .font(.title)
+                        .foregroundColor(.yellow)
+                        .bold()
+                }
+                Spacer()
+                HStack{
+                    Text(computer_friend ? "YOU:\(player1_score)" : "PLAYER 1:\(player1_score)")
+                        .frame(width: 150, height: 40, alignment: .center)
+                        .foregroundColor(.white)
+                        .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing))
+                        .cornerRadius(5.0)
+                    Text(computer_friend ? "COMPUTER:\(player2_score)" : "PLAYER 2:\(player2_score)")
+                        .frame(width: 150, height: 40, alignment: .center)
+                        .foregroundColor(.white)
+                        .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing))
+                        .cornerRadius(5.0)
+                }
+                Spacer()
+                HStack{
+                    Button("Play Again"){
+                        replay = true
+                    }
+                    .fullScreenCover(isPresented: $replay, content: {
+                        if !computer_friend {
+                            Human(showHuman: $replay)
+                        }
+                        else{
+                            Computer(showComputer: $replay)
+                        }
+                    })
+                    .foregroundColor(Color.white)
+                    .font(.title)
+                    .frame(width: 150,height: 40)
+                    .padding()
+                    .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing))
+                    .cornerRadius(10)
+                    .padding(5)
+                    Button("Home"){
+                        home.toggle()
+                    }
+                    .fullScreenCover(isPresented: $home, content: {
+                        ContentView()
+                    })
+                    .foregroundColor(Color.white)
+                    .font(.title)
+                    .frame(width: 150,height: 40)
+                    .padding()
+                    .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing))
+                    .cornerRadius(10)
+                    .padding(5)
+                }
             }
         }
+        
     }
 }
 

@@ -37,7 +37,6 @@ struct Human: View {
                     current_id = 0
                 }
             }
-
             if((current_player==1 && current_id==13) || (current_player==2 && current_id==6)){
                 continue
             }
@@ -113,18 +112,19 @@ struct Human: View {
             VStack(alignment: .center, spacing: 25){
                 Text("Current Player: \(current_player)")
                     .font(.largeTitle)
-                    .foregroundColor(.yellow)
+                    .foregroundColor(((current_player == 1) ? Color.yellow : .blue))
                 HStack(alignment: .center, spacing: 30){
                     VStack(alignment: .center, spacing: 20){
                         //Text("Player 1")
                         ForEach(0..<6){ i in
                             HStack{
                                 Text("\(pocket[i])")
-                                    .foregroundColor(((current_player == 1 && pocket[i] != 0) ? Color.red : .blue))
+                                    .foregroundColor(Color.yellow)
                                     .font(.title2)
+                                    .bold()
                                 ZStack{
                                     Circle()
-                                        .stroke(((current_player == 1 && pocket[i] != 0) ? Color.red : .blue), lineWidth: 3.0)
+                                        .stroke(((current_player == 1 && pocket[i] != 0) ? Color.red : .yellow), lineWidth: 3.0)
                                         .frame(width: 90, height: 90, alignment: .center)
                                         .fullScreenCover(isPresented: $endd, content: {
                                             Result(show: $showHuman, computer_friend: $computer_firend, p1win: $p1win, tie: $tie, player1_score: $pocket[6], player2_score: $pocket[13])
@@ -147,11 +147,12 @@ struct Human: View {
                         }
                         HStack(alignment: .center){
                             Text("\(pocket[6])")
-                                .foregroundColor(((current_player == 1 && pocket[6] != 0) ? Color.red : .blue))
+                                .foregroundColor(Color.yellow)
                                 .font(.title2)
+                                .bold()
                             ZStack{
                                 RoundedRectangle(cornerRadius: 100)
-                                    .stroke(Color.blue, lineWidth: 3.0)
+                                    .stroke(Color.yellow, lineWidth: 3.0)
                                     .frame(width: 160, height: 90, alignment: .center)
                                 ForEach(0..<pocket[6], id:\.self){ j in
                                     if(pocket[6] != 0){
@@ -181,8 +182,9 @@ struct Human: View {
                                 }
                             }
                             Text("\(pocket[13])")
-                                .foregroundColor(((current_player == 1 && pocket[13] != 0) ? Color.red : .blue))
+                                .foregroundColor(Color.blue)
                                 .font(.title2)
+                                .bold()
                         }
                         /*for i in stride(from: 12, through: 7, by: -1)*/
                         
@@ -209,10 +211,10 @@ struct Human: View {
                                         }
                                     }
                                 }
-                                
                                 Text("\(pocket[19-i])")
-                                    .foregroundColor(((current_player == 2 && pocket[19-i] != 0) ? Color.red : .blue))
+                                    .foregroundColor(Color.blue)
                                     .font(.title2)
+                                    .bold()
                             }
                         }
                     }
