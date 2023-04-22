@@ -105,11 +105,16 @@ struct Computer: View {
             player_turn = true
             computer_turn = false
         }
-        onChange_flag += 1
+        // onChange_flag += 1
+        if (computer_turn == true){
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0){
+                computer_move()
+            }
+        }
     }
     
     private func computer_move(){
-        var computer_index = 8   //pocket為０的話重新產生
+        var computer_index = 7   //pocket為０的話重新產生 (開頭先執行７比較好找bug)
         while((non_zero_count[0] != 0 && non_zero_count[1] != 0) && pocket[computer_index] == 0){ //應該用19-computer_index
             computer_index = Int.random(in: 7...12)
         }
@@ -244,13 +249,13 @@ struct Computer: View {
                     .cornerRadius(10)
                 }
             }
-            .onChange(of: onChange_flag){ newValue in
-                if (computer_turn == true){
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0){
-                        computer_move()
-                    }
-                }
-            }
+//            .onChange(of: onChange_flag){ newValue in
+//                if (computer_turn == true){
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0){
+//                        computer_move()
+//                    }
+//                }
+//            }
         }
     }
 }

@@ -59,11 +59,17 @@ struct Result: View {
                         .foregroundColor(.white)
                         .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing))
                         .cornerRadius(5.0)
+                        .onTapGesture {
+                            print(player1_score)
+                        }
                     Text(computer_friend ? "COMPUTER:\(player2_score)" : "PLAYER 2:\(player2_score)")
                         .frame(width: 150, height: 40, alignment: .center)
                         .foregroundColor(.white)
                         .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing))
                         .cornerRadius(5.0)
+                        .onTapGesture {
+                            print(player2_score)
+                        }
                 }
                 Spacer()
                 HStack{
