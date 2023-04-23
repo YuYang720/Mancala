@@ -42,28 +42,30 @@ struct Result: View {
                 }
                 else if !computer_friend{
                     Text(p1win ? "PLAYER 1 WIN!" : "PLAYER 2 WIN!")
-                        .font(.title)
+                        .font(.largeTitle)
                         .foregroundColor(.yellow)
                         .bold()
                 }
                 else{
                     Text(p1win ? "YOU WIN!" : "YOU LOSE!")
-                        .font(.title)
+                        .font(.largeTitle)
                         .foregroundColor(.yellow)
                         .bold()
                 }
                 Spacer()
                 HStack{
-                    Text(computer_friend ? "YOU:\(player1_score)" : "PLAYER 1:\(player1_score)")
+                    Text(computer_friend ? "YOU:\(player1_score)" : "P1 :\(player1_score)")
                         .frame(width: 150, height: 40, alignment: .center)
+                        .padding()
                         .foregroundColor(.white)
                         .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing))
                         .cornerRadius(5.0)
                         .onTapGesture {
                             print(player1_score)
                         }
-                    Text(computer_friend ? "COMPUTER:\(player2_score)" : "PLAYER 2:\(player2_score)")
+                    Text(computer_friend ? "AI:\(player2_score)" : "P2 :\(player2_score)")
                         .frame(width: 150, height: 40, alignment: .center)
+                        .padding()
                         .foregroundColor(.white)
                         .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing))
                         .cornerRadius(5.0)

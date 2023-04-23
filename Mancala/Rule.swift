@@ -30,7 +30,7 @@ struct Rule: View {
                     .bold()
                     .frame(width: 400, height: 800, alignment: .leading)
                 
-                Button("返回主畫面"){
+                Button("HOME"){
                     showRule = false
                 }
                 .padding(10)

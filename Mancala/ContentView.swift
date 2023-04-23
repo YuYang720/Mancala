@@ -25,7 +25,7 @@ struct ContentView: View {
                     .font(.largeTitle)
                     .foregroundColor(.red)
                     .padding()
-                Button("VS. Computer"){
+                Button("vs. AI"){
                     showComputer = true
                 }
                 .font(.largeTitle)
@@ -36,7 +36,7 @@ struct ContentView: View {
                 .fullScreenCover(isPresented: $showComputer){
                     Computer(showComputer: $showComputer)
                 }
-                Button("VS. Friend"){
+                Button("vs. Friend"){
                     showHuman = true
                 }
                 .font(.largeTitle)

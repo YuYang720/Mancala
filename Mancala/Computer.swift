@@ -114,7 +114,7 @@ struct Computer: View {
     }
     
     private func computer_move(){
-        var computer_index = 7   //pocket為０的話重新產生 (開頭先執行７比較好找bug)
+        var computer_index = Int.random(in: 7...12)    //７ // Int.random(in: 7...12) //pocket為０的話重新產生 (開頭先執行７比較好找bug)
         while((non_zero_count[0] != 0 && non_zero_count[1] != 0) && pocket[computer_index] == 0){ //應該用19-computer_index
             computer_index = Int.random(in: 7...12)
         }
@@ -128,7 +128,7 @@ struct Computer: View {
                 .rotationEffect(.degrees(90))
                 .frame(width: 940, height: 430, alignment: .center)
             VStack(alignment: .center, spacing: 25){
-                Text(player_turn ? "Your Turn": "Computer Turn")
+                Text(player_turn ? "Your Turn": "AI Turn")
                     .font(.largeTitle)
                     .foregroundColor((player_turn ? Color.yellow : .blue))
                 HStack(alignment: .center, spacing: 30){
