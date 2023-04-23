@@ -58,7 +58,6 @@ struct ContentView: View {
                 .fullScreenCover(isPresented: $showRule){
                     Rule(showRule: $showRule)
                 }
-                
             }
         }
     }

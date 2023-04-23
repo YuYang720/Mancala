@@ -19,7 +19,6 @@ struct Human: View {
     @State var backhome = false
     @State var endd = false
     @State var computer_firend = false
-    @State var set = false
     @State var p1win = false
     @State var p1lose = false
     @State var tie = false

@@ -114,7 +114,7 @@ struct Computer: View {
     }
     
     private func computer_move(){
-        var computer_index = Int.random(in: 7...12)    //７ // Int.random(in: 7...12) //pocket為０的話重新產生 (開頭先執行７比較好找bug)
+        var computer_index = Int.random(in: 7...12) // Int.random(in: 7...12) //pocket為０的話重新產生 (開頭先執行７比較好找bug)
         while((non_zero_count[0] != 0 && non_zero_count[1] != 0) && pocket[computer_index] == 0){ //應該用19-computer_index
             computer_index = Int.random(in: 7...12)
         }
